@@ -1,0 +1,12 @@
+<form th:action="@{/submitQuiz}" method="post">
+    <div th:each="question, iterStat : ${questions}">
+        <p th:text="${question.question}"></p>
+        <label>
+            <input type="radio" th:name="'answers_' + ${iterStat.index}" value="true" required /> True
+        </label>
+        <label>
+            <input type="radio" th:name="'answers_' + ${iterStat.index}" value="false" /> False
+        </label>
+    </div>
+    <button type="submit">Submit Quiz</button>
+</form>

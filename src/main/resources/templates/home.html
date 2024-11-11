@@ -2,7 +2,42 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"> 
 <head> <title>We are home!</title> </head> 
 <body> 
-   <h1>Welcome to...test server</h1> 
+   <h1>Login</h1>
+   <form th:action="@{/login}" method="post" id="loginForm">
+      <input type="text" name="email" placeholder="Email" required />
+      <input type="password" name="password" placeholder="Password" required />
+      <button type="submit">Login</button>
+   </form>
+  
+   <script>
+      document.getElementById('loginForm').addEventListener('submit', function(event) {
+         event.preventDefault();
+         const email = document.querySelector('input[name="email"]').value;
+         const password = document.querySelector('input[name="password"]').value;
+         
+         fetch(`/emailCheck?email=${email}`)
+            .then(response => response.text())
+            .then(emailResult => {
+               if (emailResult !== 'Valid email') {
+                     alert('Invalid email address');
+                     return;
+               }
+               return fetch(`/passwordCheck?password=${password}`);
+            })
+            .then(response => response ? response.text() : null)
+            .then(passwordResult => {
+               if (passwordResult === 'Valid password') {
+                  window.location.href = '/quiz';
+               } else {
+                     alert('Invalid password');
+               }
+            })
+            .catch(error => {
+               console.error('Error:', error);
+               alert('An error occurred during login.');
+            });
+      });
+   </script> 
 
 </body> 
 </html>
