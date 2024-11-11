@@ -20,7 +20,7 @@ public class HomeController {
 
 	@GetMapping("/") 
 	public String home() { 
-		return "home";  // for home.html 
+		return "home";  //home.html 
 	} 
 
 	@GetMapping("/passwordCheck")
@@ -40,7 +40,7 @@ public class HomeController {
 		ArrayQuestionsTrueFalse questionSource = new ArrayQuestionsTrueFalse();
 		List<QuestionTrueFalse> questions = questionSource.getAllQuestions();
 		model.addAttribute("questions", questions);
-		return "quiz"; // for quiz.html
+		return "quiz"; //display quiz.html
 	}
 
 	@PostMapping("/submitQuiz")
@@ -49,7 +49,7 @@ public class HomeController {
 		List<QuestionTrueFalse> questions = questionSource.getAllQuestions();
 		int score = 0;
 
-		// Iterate through the answers and check if they are correct
+		// Iterate through answers calculate score
 		for (int i = 0; i < questions.size(); i++) {
 			String answerKey = "answers_" + i;
 			String userAnswer = answers.get(answerKey);
@@ -63,7 +63,7 @@ public class HomeController {
 
 		model.addAttribute("score", score);
 		model.addAttribute("totalQuestions", questions.size());
-		return "result"; // Redirect to results.html
+		return "result"; //display results
 	}
 
 }
